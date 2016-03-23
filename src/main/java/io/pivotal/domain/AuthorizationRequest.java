@@ -1,8 +1,11 @@
-package io.pivotal;
+package io.pivotal.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class AuthorizationRequest {
+public class AuthorizationRequest {
     private Long issuerId;
     private Long acquirerId;
     private Long merchantId;
@@ -11,6 +14,7 @@ class AuthorizationRequest {
     private String reservationName;
     private Date transactionDate;
 
+    @JsonCreator
     public AuthorizationRequest() {
     }
 
@@ -82,6 +86,7 @@ class AuthorizationRequest {
 
     @Override
     public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy, hh:mm aaa");
         return "AuthorizationRequest{" +
                 "issuerId=" + issuerId +
                 ", acquirerId=" + acquirerId +
@@ -89,7 +94,7 @@ class AuthorizationRequest {
                 ", cardNumber=" + cardNumber +
                 ", amount=" + amount +
                 ", reservationName='" + reservationName + '\'' +
-                ", transactionDate=" + transactionDate +
+                ", transactionDate=" + sdf.format(transactionDate) +
                 '}';
     }
 
