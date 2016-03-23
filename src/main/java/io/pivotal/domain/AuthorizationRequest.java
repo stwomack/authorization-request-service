@@ -11,20 +11,20 @@ public class AuthorizationRequest {
     private Long merchantId;
     private Long cardNumber;
     private Double amount;
-    private String reservationName;
+    private String name;
     private Date transactionDate;
 
     @JsonCreator
     public AuthorizationRequest() {
     }
 
-    public AuthorizationRequest(Long issuerId, Long acquirerId, Long merchantId, Long cardNumber, Double amount, String reservationName, Date transactionDate) {
+    public AuthorizationRequest(Long issuerId, Long acquirerId, Long merchantId, Long cardNumber, Double amount, String name, Date transactionDate) {
         this.issuerId = issuerId;
         this.acquirerId = acquirerId;
         this.merchantId = merchantId;
         this.cardNumber = cardNumber;
         this.amount = amount;
-        this.reservationName = reservationName;
+        this.name = name;
         this.transactionDate = transactionDate;
     }
 
@@ -68,12 +68,12 @@ public class AuthorizationRequest {
         this.amount = amount;
     }
 
-    public String getReservationName() {
-        return reservationName;
+    public String getName() {
+        return name;
     }
 
-    public void setReservationName(String reservationName) {
-        this.reservationName = reservationName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getTransactionDate() {
@@ -93,7 +93,7 @@ public class AuthorizationRequest {
                 ", merchantId=" + merchantId +
                 ", cardNumber=" + cardNumber +
                 ", amount=" + amount +
-                ", reservationName='" + reservationName + '\'' +
+                ", name='" + name + '\'' +
                 ", transactionDate=" + sdf.format(transactionDate) +
                 '}';
     }
@@ -110,7 +110,7 @@ public class AuthorizationRequest {
         if (merchantId != null ? !merchantId.equals(that.merchantId) : that.merchantId != null) return false;
         if (cardNumber != null ? !cardNumber.equals(that.cardNumber) : that.cardNumber != null) return false;
         if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
-        if (reservationName != null ? !reservationName.equals(that.reservationName) : that.reservationName != null)
+        if (name != null ? !name.equals(that.name) : that.name != null)
             return false;
         return transactionDate != null ? transactionDate.equals(that.transactionDate) : that.transactionDate == null;
 
@@ -123,7 +123,7 @@ public class AuthorizationRequest {
         result = 31 * result + (merchantId != null ? merchantId.hashCode() : 0);
         result = 31 * result + (cardNumber != null ? cardNumber.hashCode() : 0);
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        result = 31 * result + (reservationName != null ? reservationName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (transactionDate != null ? transactionDate.hashCode() : 0);
         return result;
     }
