@@ -14,13 +14,11 @@ public class JsonPrinterTest {
 
     @Test
     public void printIt() throws IOException {
-        RandomStringUtils randomStringUtils = new RandomStringUtils();
-
         ObjectMapper mapper = new ObjectMapper();
         AuthorizationRequest authorizationRequest = new AuthorizationRequest(
                 randLong(), randLong(), randLong(), randLong(),
-                Math.abs(new Random().nextDouble()), randomStringUtils.randomAlphabetic(8), new Date());
-        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(authorizationRequest.toString()));
+                Math.abs(new Random().nextDouble()), RandomStringUtils.randomAlphabetic(8), new Date());
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(authorizationRequest));
     }
 
     private long randLong() {
