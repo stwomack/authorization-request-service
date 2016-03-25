@@ -14,10 +14,6 @@ public class AuthorizationRequest {
     private String name;
     private Date transactionDate;
 
-    @JsonCreator
-    public AuthorizationRequest() {
-    }
-
     public AuthorizationRequest(Long issuerId, Long acquirerId, Long merchantId, Long cardNumber, Double amount, String name, Date transactionDate) {
         this.issuerId = issuerId;
         this.acquirerId = acquirerId;
@@ -82,49 +78,5 @@ public class AuthorizationRequest {
 
     public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
-    }
-
-    @Override
-    public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy, hh:mm aaa");
-        return "AuthorizationRequest{" +
-                "issuerId=" + issuerId +
-                ", acquirerId=" + acquirerId +
-                ", merchantId=" + merchantId +
-                ", cardNumber=" + cardNumber +
-                ", amount=" + amount +
-                ", name='" + name + '\'' +
-                ", transactionDate=" + sdf.format(transactionDate) +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AuthorizationRequest that = (AuthorizationRequest) o;
-
-        if (issuerId != null ? !issuerId.equals(that.issuerId) : that.issuerId != null) return false;
-        if (acquirerId != null ? !acquirerId.equals(that.acquirerId) : that.acquirerId != null) return false;
-        if (merchantId != null ? !merchantId.equals(that.merchantId) : that.merchantId != null) return false;
-        if (cardNumber != null ? !cardNumber.equals(that.cardNumber) : that.cardNumber != null) return false;
-        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null)
-            return false;
-        return transactionDate != null ? transactionDate.equals(that.transactionDate) : that.transactionDate == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = issuerId != null ? issuerId.hashCode() : 0;
-        result = 31 * result + (acquirerId != null ? acquirerId.hashCode() : 0);
-        result = 31 * result + (merchantId != null ? merchantId.hashCode() : 0);
-        result = 31 * result + (cardNumber != null ? cardNumber.hashCode() : 0);
-        result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (transactionDate != null ? transactionDate.hashCode() : 0);
-        return result;
     }
 }

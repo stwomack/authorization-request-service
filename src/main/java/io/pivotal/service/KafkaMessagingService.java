@@ -1,6 +1,5 @@
 package io.pivotal.service;
 
-import io.pivotal.domain.AuthorizationRequest;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -9,11 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 @Service
 public class KafkaMessagingService {
+
     @Value("${brokerList}")
     private String brokerList;
 
@@ -44,28 +45,25 @@ public class KafkaMessagingService {
         kafkaProps.put("linger.ms", 5);
 
         producer = new KafkaProducer<>(kafkaProps);
-
     }
 
-    public void send(AuthorizationRequest authorizationRequest) throws ExecutionException,
-            InterruptedException {
+    public void send(String message) throws ExecutionException,
+            InterruptedException, IOException {
+        ProducerRecord<String, String> record = new ProducerRecord<>(topic, message);
+
         if ("sync".equalsIgnoreCase(sync)) {
-            sendSync(authorizationRequest);
+            sendSync(record);
         } else {
-            sendAsync(authorizationRequest);
+            sendAsync(record);
         }
     }
 
-    private void sendSync(AuthorizationRequest authorizationRequest) throws ExecutionException,
-            InterruptedException {
-        ProducerRecord<String, String> record = new ProducerRecord<>(topic, authorizationRequest.toString());
+    private void sendSync(ProducerRecord<String, String> record) throws ExecutionException,
+            InterruptedException, IOException {
         producer.send(record).get();
-
     }
 
-    private void sendAsync(AuthorizationRequest authorizationRequest) {
-        ProducerRecord<String, String> record = new ProducerRecord<>(topic, authorizationRequest.toString());
-
+    private void sendAsync(ProducerRecord<String, String> record) throws IOException {
         producer.send(record, (RecordMetadata recordMetadata, Exception e) -> {
             if (e != null) {
                 e.printStackTrace();

@@ -1,27 +1,30 @@
 package io.pivotal.controller;
 
-import io.pivotal.domain.*;
+import io.pivotal.domain.AuthorizationRequest;
 import io.pivotal.service.KafkaMessagingService;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @RestController
 public class AuthorizationRequestController {
+    ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     KafkaMessagingService messagingService;
 
-    @RequestMapping(value="/authorizationRequest", method=RequestMethod.POST, consumes="application/json")
-    public @ResponseBody AuthorizationRequest authorizationRequest(
-            @RequestBody AuthorizationRequest authorizationRequest) throws ExecutionException, InterruptedException {
+    @RequestMapping(value = "/authorizationRequest", method = RequestMethod.POST, consumes = "application/json")
+    public
+    @ResponseBody
+    AuthorizationRequest authorizationRequest(
+            @RequestBody AuthorizationRequest authorizationRequest) throws ExecutionException, InterruptedException, IOException {
 
-        messagingService.send(authorizationRequest);
-        System.out.println(String.format("Payment saved and put on queue = [%s]", authorizationRequest));
+        String message = mapper.writeValueAsString(authorizationRequest);
+        System.out.println(String.format("Payment put on queue = [%s]", message));
+        messagingService.send(message);
         return authorizationRequest;
     }
 }
