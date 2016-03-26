@@ -1,8 +1,5 @@
-package io.pivotal.domain;
+package pivotal.io.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AuthorizationRequest {
@@ -78,5 +75,18 @@ public class AuthorizationRequest {
 
     public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "issuerId: " + issuerId +
+                ", acquirerId: " + acquirerId +
+                ", merchantId: " + merchantId +
+                ", cardNumber: " + cardNumber +
+                ", amount: " + amount +
+                ", name: '" + name + '\'' +
+                ", transactionDate: " + transactionDate +
+                '}';
     }
 }

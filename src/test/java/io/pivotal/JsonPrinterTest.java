@@ -15,7 +15,7 @@ public class JsonPrinterTest {
     ObjectMapper mapper = new ObjectMapper();
 
     public static final String URL = "http://localhost:8080/authorizationRequest";
-    private static final int MESSAGE_COUNT = 100;
+    private static final int MESSAGE_COUNT = 1;
 
     @Test
     public void spamHttpEndpointWithMessages() throws UnirestException, IOException {

@@ -1,7 +1,9 @@
 package io.pivotal.service;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -24,7 +27,8 @@ public class KafkaMessagingService {
     @Value("${topic}")
     private String topic;
 
-    private Producer<String, String> producer;
+    private KafkaProducer<String, String> producer;
+    private KafkaConsumer<String, String> consumer;
 
     public KafkaMessagingService() {
     }
@@ -45,6 +49,7 @@ public class KafkaMessagingService {
         kafkaProps.put("linger.ms", 5);
 
         producer = new KafkaProducer<>(kafkaProps);
+        consumer = new KafkaConsumer<>(kafkaProps);
     }
 
     public void send(String message) throws ExecutionException,
