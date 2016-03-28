@@ -24,7 +24,7 @@ public class AuthorizationRequestController {
 
         String message = mapper.writeValueAsString(authorizationRequest);
         System.out.println(String.format("Payment put on queue = [%s]", message));
-        messagingService.send(message);
+//        messagingService.send(message);
         return authorizationRequest;
     }
 }
