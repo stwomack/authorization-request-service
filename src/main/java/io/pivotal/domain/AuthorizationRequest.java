@@ -3,20 +3,21 @@ package io.pivotal.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class AuthorizationRequest {
-    @JsonProperty()
+    @Id
+    @GeneratedValue
+    private Long id;
     private Long issuerId;
-    @JsonProperty()
     private Long acquirerId;
-    @JsonProperty()
     private String cardNumber;
-    @JsonProperty()
     private Double amount;
-    @JsonProperty()
     private String name;
-    @JsonProperty()
     private Date transactionDate;
 
     public AuthorizationRequest() {
@@ -82,13 +83,14 @@ public class AuthorizationRequest {
 
     @Override
     public String toString() {
-        return "{" +
-                "'issuerId': '" + issuerId +
-                "', 'acquirerId': " + acquirerId +
-                "', 'cardNumber': " + cardNumber +
-                "', 'amount': " + amount +
-                "', 'name': '" + name + '\'' +
-                "', 'transactionDate': '" + transactionDate +
-                "'}";
+        return "AuthorizationRequest{" +
+                "id=" + id +
+                ", issuerId=" + issuerId +
+                ", acquirerId=" + acquirerId +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", amount=" + amount +
+                ", name='" + name + '\'' +
+                ", transactionDate=" + transactionDate +
+                '}';
     }
 }
