@@ -32,7 +32,7 @@ public class JsonPrinterTest {
 
     public AuthorizationRequest createTestPayload() throws IOException {
         AuthorizationRequest authorizationRequest = new AuthorizationRequest(
-                randLong(), randLong(), randLong(), randLong(),
+                randLong(), randLong(), randLong(),
                 Math.abs(new Random().nextDouble()), RandomStringUtils.randomAlphabetic(8), new Date());
         return authorizationRequest;
     }
