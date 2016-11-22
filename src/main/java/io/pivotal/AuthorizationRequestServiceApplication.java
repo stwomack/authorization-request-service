@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 @SpringBootApplication
@@ -20,6 +21,4 @@ public class AuthorizationRequestServiceApplication {
 
 @RepositoryRestResource
 interface AuthorizationRequestRepository extends JpaRepository<AuthorizationRequest, Long> {
-    @RestResource(path = "by-name")
-    Collection<AuthorizationRequest> findByName(@Param("name") String name);
 }
